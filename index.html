@@ -295,6 +295,7 @@
             line-height: 2.2;
             opacity: 0.6;
             letter-spacing: 2px;
+            text-align: center;
         }
 
         @media (max-width: 480px) {
@@ -306,7 +307,6 @@
 </head>
 <body>
 
-    <!-- 閃亮光點容器 -->
     <div id="stars" class="stars-container"></div>
 
     <div class="whale-container">
@@ -344,7 +344,7 @@
         <div id="res" class="result">
             <div class="bmi-val" id="resBmi">22.5</div>
             <div class="bmi-act" id="resAct">完美的平衡</div>
-            <p class="bmi-quote" id="resQuote">正如深海中一切都處於和諧，您的數值非常理想。請繼續愛護這具承載靈魂的軀殼。</p>
+            <p class="bmi-quote" id="resQuote"></p>
         </div>
     </div>
 
@@ -354,21 +354,19 @@
     </div>
 
     <script>
-        // 初始化閃亮光點
+        // 初始化 100 個閃亮光點
         const starsContainer = document.getElementById('stars');
-        const starCount = 40;
+        const starCount = 100;
 
         for (let i = 0; i < starCount; i++) {
             const star = document.createElement('div');
             star.className = 'star';
-            
-            // 隨機屬性
-            const size = Math.random() * 4 + 1;
+            const size = Math.random() * 3 + 1;
             const posX = Math.random() * 100;
             const posY = Math.random() * 100;
-            const duration = Math.random() * 3 + 4;
-            const delay = Math.random() * 5;
-            const maxOpacity = Math.random() * 0.5 + 0.3;
+            const duration = Math.random() * 4 + 3;
+            const delay = Math.random() * 10;
+            const maxOpacity = Math.random() * 0.7 + 0.3;
 
             star.style.width = `${size}px`;
             star.style.height = `${size}px`;
@@ -377,42 +375,32 @@
             star.style.setProperty('--duration', `${duration}s`);
             star.style.setProperty('--max-opacity', maxOpacity);
             star.style.animationDelay = `${delay}s`;
-
             starsContainer.appendChild(star);
         }
 
-        const hi = document.getElementById('hIn');
-        const wi = document.getElementById('wIn');
-        const hs = document.getElementById('hShow');
-        const ws = document.getElementById('wShow');
-        const re = document.getElementById('res');
-
+        const hi = document.getElementById('hIn'), wi = document.getElementById('wIn'), hs = document.getElementById('hShow'), ws = document.getElementById('wShow'), re = document.getElementById('res');
         hi.oninput = () => hs.innerText = hi.value;
         wi.oninput = () => ws.innerText = wi.value;
 
         function reveal() {
-            const h = hi.value / 100;
-            const w = wi.value;
-            const bmi = (w / (h * h)).toFixed(1);
-
+            const h = hi.value / 100, w = wi.value, bmi = (w / (h * h)).toFixed(1);
             document.getElementById('resBmi').innerText = bmi;
             re.style.display = 'block';
 
-            const ra = document.getElementById('resAct');
-            const rq = document.getElementById('resQuote');
+            const ra = document.getElementById('resAct'), rq = document.getElementById('resQuote');
 
             if (bmi < 18.5) {
                 ra.innerText = "輕盈的幻象";
-                rq.innerText = "生命有時太輕，輕得像一場抓不住的夢。建議給予身體更多溫度的滋養。";
+                rq.innerText = "「生命有時太輕，非非，我不希望你的存在只是一道幻影。」";
             } else if (bmi < 24) {
                 ra.innerText = "完美的平衡";
-                rq.innerText = "萬物皆有其律，而您正處於最和諧的章節。請繼續維持這份平衡。";
+                rq.innerText = "「萬物皆有其律，而你正處於最理想的和諧章節。」";
             } else if (bmi < 27) {
                 ra.innerText = "沈重的思緒";
-                rq.innerText = "有時沈重的負擔會讓人忘了輕盈起舞。試著調整生活的律動，讓身心歸位。";
+                rq.innerText = "「別擔心，我會陪著你慢慢找回那份輕盈的起舞。」";
             } else {
                 ra.innerText = "深刻的負累";
-                rq.innerText = "深海的壓力雖然巨大，但我們可以選擇尋找出口。為了長久的相守，請開始關心健康的根基。";
+                rq.innerText = "「為了長久的相守，我想陪你走更長遠、更健康的道路。」";
             }
 
             re.scrollIntoView({ behavior: 'smooth', block: 'end' });
